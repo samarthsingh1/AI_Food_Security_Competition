@@ -1,0 +1,28 @@
+{
+  "namespace": "com.ai_food.raw",
+  "type": "record",
+  "name": "Ticket",
+  "fields": [
+    {"name": "Issue_key", "type": "string"},
+    {"name": "Summary", "type": ["null", "string"], "default": null},
+    {"name": "Issue_id", "type": ["null", "string"], "default": null},
+    {"name": "Issue_Type", "type": ["null", "string"], "default": null},
+    {"name": "Status", "type": ["null", "string"], "default": null},
+    {"name": "Priority", "type": ["null", "string"], "default": null},
+    {"name": "Resolution", "type": ["null", "string"], "default": null},
+    {"name": "Assignee", "type": ["null", "string"], "default": null},
+    {"name": "Reporter_Email", "type": ["null", "string"], "default": null},
+    {"name": "Created", "type": ["null", "string"], "default": null},
+    {"name": "Updated", "type": ["null", "string"], "default": null},
+    {"name": "Resolved", "type": ["null", "string"], "default": null},
+    {"name": "Region", "type": ["null", "string"], "default": null},
+    {"name": "Relevant_Departments", "type": ["null", "string"], "default": null},
+    {"name": "Request_Category", "type": ["null", "string"], "default": null},
+    {"name": "Request_Type", "type": ["null", "string"], "default": null},
+    {"name": "Resolution_Action", "type": ["null", "string"], "default": null},
+    {"name": "Satisfaction_rating", "type": ["null", "int"], "default": null},
+    {"name": "Source", "type": ["null", "string"], "default": null},
+    {"name": "Time_to_resolution", "type": ["null", "string"], "default": null},
+    {"name": "Work_category", "type": ["null", "string"], "default": null}
+  ]
+}

@@ -1,0 +1,61 @@
+─name──────────────────────────────────────────┐
+│ Summary                                       │
+│ Issue key                                     │
+│ Issue id                                      │
+│ Issue Type                                    │
+│ Status                                        │
+│ Project key                                   │
+│ Project name                                  │
+│ Priority                                      │
+│ Resolution                                    │
+│ Assignee                                      │
+│ Reporter (Email)                              │
+│ Creator (Email)                               │
+│ Created                                       │
+│ Updated                                       │
+│ Last Viewed                                   │
+│ Resolved                                      │
+│ Due date                                      │
+│ Description                                   │
+│ Partner Names                                 │
+│ Custom field (Cause of issue)                 │
+│ Custom field (Record/Transaction ID)          │
+│ Custom field (Region)                         │
+│ Custom field (Relevant Departments)           │
+│ Custom field (Relevant Departments).1         │
+│ Custom field (Request Category)               │
+│ Custom field (Request Type)                   │
+│ Custom field (Request language)               │
+│ Custom field (Resolution Action)              │
+│ Satisfaction rating                           │
+│ Custom field (Satisfaction date)              │
+│ Custom field (Source)                         │
+│ Custom field (Time to first response)         │
+│ Custom field (Time to resolution)             │
+│ Custom field (Work category)                  │
+│ Status Category                               │
+│ Status Category Changed                       │
+│ Custom field ([CHART] Date of First Response) │
+│ Comment                                       │
+│ Comment.1                                     │
+│ Comment.2                                     │
+│ Comment.3                                     │
+│ Comment.4                                     │
+│ Comment.5                                     │
+│ Comment.6                                     │
+│ Comment.7                                     │
+│ Comment.8                                     │
+│ Comment.9                                     │
+│ Comment.10                                    │
+│ Comment.11                                    │
+│ Comment.12                                    │
+│ Comment.13                                    │
+│ Comment.14                                    │
+│ Comment.15                                    │
+│ Comment.16                                    │
+│ Comment.17                                    │
+│ Comment.18                                    │
+│ Comment.19                                    │
+│ Comment.20                                    │
+└───────────────────────────────────────────────┘
+

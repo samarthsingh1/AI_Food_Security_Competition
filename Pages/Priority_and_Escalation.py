@@ -2,6 +2,7 @@
 
 import streamlit as st
 import pandas as pd
+from Modules.db import fetch_clickhouse_data
 from Modules.agent_insights import agentic_summary_pipeline
 from Modules.forecasting import escalated_tickets_per_agent_trend
 from Modules.preprocessing import preprocessing, preparing_adf

@@ -1,0 +1,76 @@
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import JSONResponse
+from app.services.kafka_producer import produce_ticket_event
+from pydantic import BaseModel
+from typing import Optional
+
+router = APIRouter()
+
+class TicketPayload(BaseModel):
+    Summary: Optional[str] = Field(None, alias="Summary")
+    Issue_key: Optional[str] = Field(None, alias="Issue key")
+    Issue_id: Optional[int] = Field(None, alias="Issue id")
+    Issue_Type: Optional[str] = Field(None, alias="Issue Type")
+    Status: Optional[str] = Field(None, alias="Status")
+    Project_key: Optional[str] = Field(None, alias="Project key")
+    Project_name: Optional[str] = Field(None, alias="Project name")
+    Priority: Optional[str] = Field(None, alias="Priority")
+    Resolution: Optional[str] = Field(None, alias="Resolution")
+    Assignee: Optional[str] = Field(None, alias="Assignee")
+    Reporter_Email: Optional[str] = Field(None, alias="Reporter (Email)")
+    Creator_Email: Optional[str] = Field(None, alias="Creator (Email)")
+    Created: Optional[str] = Field(None, alias="Created")
+    Updated: Optional[str] = Field(None, alias="Updated")
+    Last_Viewed: Optional[str] = Field(None, alias="Last Viewed")
+    Resolved: Optional[str] = Field(None, alias="Resolved")
+    Due_date: Optional[str] = Field(None, alias="Due date")
+    Description: Optional[str] = Field(None, alias="Description")
+    Partner_Names: Optional[str] = Field(None, alias="Partner Names")
+    Custom_field_Cause_of_issue: Optional[str] = Field(None, alias="Custom field (Cause of issue)")
+    Custom_field_Record_Transaction_ID: Optional[str] = Field(None, alias="Custom field (Record/Transaction ID)")
+    Custom_field_Region: Optional[str] = Field(None, alias="Custom field (Region)")
+    Custom_field_Relevant_Departments: Optional[str] = Field(None, alias="Custom field (Relevant Departments)")
+    Custom_field_Relevant_Departments_1: Optional[str] = Field(None, alias="Custom field (Relevant Departments).1")
+    Custom_field_Request_Category: Optional[str] = Field(None, alias="Custom field (Request Category)")
+    Custom_field_Request_Type: Optional[str] = Field(None, alias="Custom field (Request Type)")
+    Custom_field_Request_language: Optional[str] = Field(None, alias="Custom field (Request language)")
+    Custom_field_Resolution_Action: Optional[str] = Field(None, alias="Custom field (Resolution Action)")
+    Satisfaction_rating: Optional[float] = Field(None, alias="Satisfaction rating")
+    Custom_field_Satisfaction_date: Optional[str] = Field(None, alias="Custom field (Satisfaction date)")
+    Custom_field_Source: Optional[str] = Field(None, alias="Custom field (Source)")
+    Custom_field_Time_to_first_response: Optional[str] = Field(None, alias="Custom field (Time to first response)")
+    Custom_field_Time_to_resolution: Optional[str] = Field(None, alias="Custom field (Time to resolution)")
+    Custom_field_Work_category: Optional[str] = Field(None, alias="Custom field (Work category)")
+    Status_Category: Optional[str] = Field(None, alias="Status Category")
+    Status_Category_Changed: Optional[str] = Field(None, alias="Status Category Changed")
+    Custom_field_CHART_Date_of_First_Response: Optional[str] = Field(None, alias="Custom field ([CHART] Date of First Response)")
+    Comment: Optional[str] = Field(None, alias="Comment")
+    Comment_1: Optional[str] = Field(None, alias="Comment.1")
+    Comment_2: Optional[str] = Field(None, alias="Comment.2")
+    Comment_3: Optional[str] = Field(None, alias="Comment.3")
+    Comment_4: Optional[str] = Field(None, alias="Comment.4")
+    Comment_5: Optional[str] = Field(None, alias="Comment.5")
+    Comment_6: Optional[str] = Field(None, alias="Comment.6")
+    Comment_7: Optional[str] = Field(None, alias="Comment.7")
+    Comment_8: Optional[str] = Field(None, alias="Comment.8")
+    Comment_9: Optional[str] = Field(None, alias="Comment.9")
+    Comment_10: Optional[str] = Field(None, alias="Comment.10")
+    Comment_11: Optional[str] = Field(None, alias="Comment.11")
+    Comment_12: Optional[str] = Field(None, alias="Comment.12")
+    Comment_13: Optional[str] = Field(None, alias="Comment.13")
+    Comment_14: Optional[str] = Field(None, alias="Comment.14")
+    Comment_15: Optional[str] = Field(None, alias="Comment.15")
+    Comment_16: Optional[str] = Field(None, alias="Comment.16")
+    Comment_17: Optional[str] = Field(None, alias="Comment.17")
+    Comment_18: Optional[str] = Field(None, alias="Comment.18")
+    Comment_20: Optional[str] = Field(None, alias="Comment.20")
+    Comment_19: Optional[str] = Field(None, alias="Comment.19")
+
+
+@router.post("/jira_issue_raw/")
+async def send_jira(payload: JiraPayload):
+    try:
+        produce_ticket_event(payload.dict())  # this assumes schema matches Avro & Kafka topic
+        return JSONResponse(content={"message": "jira_issue_raw tickets sent to Kafka"}, status_code=200)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

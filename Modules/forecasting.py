@@ -72,7 +72,7 @@ def weekly_inflow_outflow(adf):
 
 def percent_negative_comments_over_time(sentiment_df):
     df = sentiment_df[['Created', 'Sentiment_Label']].copy()
-    df['Created'] = pd.to_datetime(df['Created'], errors='coerce')
+    # df['Created'] = pd.to_datetime(df['Created'], errors='coerce')
     df = df.dropna(subset=['Created'])
 
     df['Week'] = df['Created'].dt.to_period('W').dt.start_time
@@ -107,7 +107,8 @@ def negative_ticket_resolution_time_trend(adf, sentiment_df):
 
 
 def escalated_tickets_per_agent_trend(adf):
-    df = adf[(adf['Priority'].notna()) & (adf['Priority'].str.lower() == 'high') & (adf['Assignee'].notna())].copy()
+    df = adf[(adf['Priority'].notna()) & (adf['Assignee'].notna())].copy()
+    # df = adf[(adf['Priority'].str.lower() == 'high')]
     df['Week'] = df['Created_Timestamp'].dt.to_period('W').dt.start_time
 
     return (

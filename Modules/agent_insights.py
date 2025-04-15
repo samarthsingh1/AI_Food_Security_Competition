@@ -86,9 +86,9 @@ def estimate_seriousness(comment):
 
 def compute_priority_score(urgency, seriousness):
     score = urgency + seriousness
-    if score >= 5:
+    if score >= 2:
         return "High"
-    elif score >= 3:
+    elif score >= 1:
         return "Medium"
     else:
         return "Low"

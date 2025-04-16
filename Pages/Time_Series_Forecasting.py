@@ -16,6 +16,67 @@ from Modules.forecasting import (
     forecast_weekly_resolution_time
 )
 
+st.markdown("""
+    <style>
+    /* Headings */
+    h1 {
+        font-size: 2.5rem !important;
+        font-weight: 800 !important;
+    }
+    h2 {
+        font-size: 1.8rem !important;
+        font-weight: 700 !important;
+    }
+
+    /* Metric labels */
+    div[data-testid="metric-container"] > label {
+        font-size: 1rem !important;
+        color: #6c757d;
+    }
+
+    /* Metric values */
+    div[data-testid="metric-container"] > div {
+        font-size: 2rem !important;
+        font-weight: 600;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+    <style>
+    /* Section spacing */
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    /* Reduce padding around charts */
+    .element-container:has(div[data-testid="stPlotlyChart"]) {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Subheader spacing */
+    h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Expander spacing */
+    .streamlit-expanderHeader {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .streamlit-expanderContent {
+        padding: 0.5rem 1rem;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
+st.markdown("<h1 style='text-align: center;'>Time Series Forecasting</h1>", unsafe_allow_html=True)
+
 # Load & prepare data (adjust path if needed)
 @st.cache_data
 def load_data():
@@ -81,7 +142,7 @@ if department != "All":
         filtered_sentiment_df['Relevant_Departments'] == department
     ]
 
-st.title("Time-Based Trends & Forecasts")
+#st.title("Time-Based Trends & Forecasts")
 
 st.markdown("---")
 st.subheader("Weekly Ticket Inflow vs. Outflow")
@@ -90,7 +151,7 @@ fig1 = px.line(inflow_outflow_df, x="Week", y=["Inflow", "Outflow"], markers=Tru
 st.plotly_chart(fig1, use_container_width=True)
 
 st.markdown("---")
-st.subheader("Backlog Growth/Decay Over Time")
+st.subheader(" Backlog Growth/Decay Over Time")
 backlog_df = backlog_trend(filtered_adf)
 fig2 = px.line(backlog_df, x="Week", y="Backlog", markers=True)
 st.plotly_chart(fig2, use_container_width=True)

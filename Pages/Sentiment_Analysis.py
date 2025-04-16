@@ -14,6 +14,67 @@ from Modules.sentiment_analysis import (
     word_cloud_generation
 )
 
+st.markdown("""
+    <style>
+    /* Headings */
+    h1 {
+        font-size: 2.5rem !important;
+        font-weight: 800 !important;
+    }
+    h2 {
+        font-size: 1.8rem !important;
+        font-weight: 700 !important;
+    }
+
+    /* Metric labels */
+    div[data-testid="metric-container"] > label {
+        font-size: 1rem !important;
+        color: #6c757d;
+    }
+
+    /* Metric values */
+    div[data-testid="metric-container"] > div {
+        font-size: 2rem !important;
+        font-weight: 600;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+    <style>
+    /* Section spacing */
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    /* Reduce padding around charts */
+    .element-container:has(div[data-testid="stPlotlyChart"]) {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Subheader spacing */
+    h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Expander spacing */
+    .streamlit-expanderHeader {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .streamlit-expanderContent {
+        padding: 0.5rem 1rem;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
+st.markdown("<h1 style='text-align: center;'>Sentiment Analysis</h1>", unsafe_allow_html=True)
+
 import pandas as pd
 
 @st.cache_data
@@ -76,10 +137,10 @@ top_negatives = top_k_negative_comments(sentiment_df)
 wordcloud = word_cloud_generation(comment_df)
 
 # Dashboard Title
-st.title("Sentiment Analysis Dashboard")
+#st.title("Sentiment Analysis Dashboard")
 
 # --- Sentiment Breakdown ---
-st.markdown("##  Sentiment Distribution")
+st.markdown("###  Sentiment Distribution")
 st.write(f"**Average Polarity:** {avg_polarity:.2f}")
 st.write(f"**Average Subjectivity:** {avg_subjectivity:.2f}")
 fig1 = px.pie(
@@ -147,10 +208,10 @@ fig.add_trace(go.Scatter(
     name='Negative',
     line=dict(color='red', width=2)
 ))
-
+st.markdown("### Weekly Sentiment Trend with Comment Volume")
 # --- Layout ---
 fig.update_layout(
-    title="Weekly Sentiment Trend with Comment Volume",
+    # title=" ",
     xaxis_title="Week",
     yaxis=dict(
         title="Polarity",
@@ -164,8 +225,15 @@ fig.update_layout(
         side='right',
         showgrid=False
     ),
-    legend=dict(title='Legend'),
-    title_x=0.5,
+    legend=dict(
+        orientation="h",  # horizontal layout
+        yanchor="bottom",
+        y=1.02,  # move above the plot
+        xanchor="center",
+        x=0.5,
+        font=dict(size=12)
+    ),
+    # title_x=0.5,
     plot_bgcolor='rgba(0,0,0,0)',
     paper_bgcolor='rgba(0,0,0,0)',
 )
@@ -174,8 +242,8 @@ fig.update_layout(
 st.plotly_chart(fig, use_container_width=True)
 
 # --- Department Polarity ---
-st.markdown("## Department-wise Sentiment")
-fig2 = px.bar(polarity_by_dept, x="Relevant_Departments", y="Polarity", color="Polarity", title="Avg Polarity per Department")
+st.markdown("### Department-wise Sentiment")
+fig2 = px.bar(polarity_by_dept, x="Relevant_Departments", y="Polarity", color="Polarity")
 st.plotly_chart(fig2, use_container_width=True)
 
 
@@ -192,17 +260,18 @@ def clean_leading_ids(text):
 
 top_negatives['Consumer_Comments'] = top_negatives['Consumer_Comments'].apply(clean_leading_ids)
 # --- Word Cloud ---
-st.markdown("## Word Cloud of All Comments")
+st.markdown("### Word Cloud of All Comments")
 fig_wc, ax = plt.subplots(figsize=(10, 5))
 ax.imshow(wordcloud, interpolation="bilinear")
 ax.axis("off")
 st.pyplot(fig_wc)
 
 # --- Most Negative Comments ---
-st.markdown("## Most Negative Comments")
-top_negatives.reset_index(inplace=True)
-st.dataframe(top_negatives[['Created', 'Consumer_Comments', 'Polarity']])
-
+st.markdown("### Most Negative Comments")
+# top_negatives.reset_index(inplace=True)
+# st.dataframe(top_negatives[['Created', 'Consumer_Comments', 'Polarity']])
+with st.expander(" View Full Table"):
+     st.dataframe(top_negatives[['Created', 'Consumer_Comments', 'Polarity']].reset_index(), use_container_width=True)
 
 
 # Download button

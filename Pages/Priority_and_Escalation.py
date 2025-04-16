@@ -9,12 +9,73 @@ from Modules.forecasting import escalated_tickets_per_agent_trend
 from Modules.preprocessing import preprocessing, preparing_adf
 
 st.set_page_config(page_title="Priority & Escalation", layout="wide")
-st.title("Priority & Escalation Dashboard")
+#st.title("Priority & Escalation Dashboard")
 
 # --- Load and cache data ---
 
 from clickhouse_driver import Client
 import pandas as pd
+
+st.markdown("""
+    <style>
+    /* Headings */
+    h1 {
+        font-size: 2.5rem !important;
+        font-weight: 800 !important;
+    }
+    h2 {
+        font-size: 1.8rem !important;
+        font-weight: 700 !important;
+    }
+
+    /* Metric labels */
+    div[data-testid="metric-container"] > label {
+        font-size: 1rem !important;
+        color: #6c757d;
+    }
+
+    /* Metric values */
+    div[data-testid="metric-container"] > div {
+        font-size: 2rem !important;
+        font-weight: 600;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+    <style>
+    /* Section spacing */
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    /* Reduce padding around charts */
+    .element-container:has(div[data-testid="stPlotlyChart"]) {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Subheader spacing */
+    h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Expander spacing */
+    .streamlit-expanderHeader {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .streamlit-expanderContent {
+        padding: 0.5rem 1rem;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
+st.markdown("<h1 style='text-align: center;'>Priority & Escalation</h1>", unsafe_allow_html=True)
 
 @st.cache_data
 def load_clickhouse_table():
@@ -100,7 +161,7 @@ fig = px.pie(
     priority_counts,
     names='Priority Level',
     values='Count',
-    title='Priority Level Distribution',
+    #title='Priority Level Distribution',
     hole=0.3,  # for donut-style chart; remove for full pie
 )
 
@@ -109,7 +170,7 @@ fig.update_traces(textinfo='percent+label', textfont_size=14)
 fig.update_layout(
     showlegend=True,
     legend_title_text='Priority Level',
-    title_x=0.5
+    #title_x=0.5
 )
 
 st.plotly_chart(fig, use_container_width=True)
@@ -140,10 +201,10 @@ fig_area = px.area(
     x="Week",
     y="Escalated_Ticket_Count",
     color="Assignee",
-    title="Stacked Area Chart: Escalated Tickets per Agent Over Time"
+    #title="Stacked Area Chart: Escalated Tickets per Agent Over Time"
 )
 
-fig_area.update_layout(title_x=0.5, xaxis_title="Week", yaxis_title="Escalated Tickets")
+fig_area.update_layout(xaxis_title="Week", yaxis_title="Escalated Tickets")
 st.plotly_chart(fig_area, use_container_width=True)
 
 
